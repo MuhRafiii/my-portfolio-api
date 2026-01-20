@@ -11,7 +11,7 @@ import techRoutes from "./routes/techs";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.use(corsMiddleware);
 app.use(express.json());
@@ -23,6 +23,6 @@ app.use("/techs", techRoutes);
 app.use("/experiences", experienceRoutes);
 app.use("/projects", projectRoutes);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
