@@ -81,7 +81,7 @@ model Projects {
   name String
   description String
   tech String[]
-  github String
+  github String?
   demo String?
   image String
   imagePublicId String

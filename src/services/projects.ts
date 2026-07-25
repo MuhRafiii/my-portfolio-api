@@ -5,7 +5,7 @@ import { deleteImage, uploadImage } from "./cloudinary";
 export const getProjects = async () => {
   const projcets = await prisma.projects.findMany({
     orderBy: {
-      created_at: "asc",
+      created_at: "desc",
     },
   });
 
@@ -16,9 +16,9 @@ export const createProject = async (
   name: string,
   description: string,
   tech: string[],
-  github: string,
+  github: string | null,
   demo: string | null,
-  file: Express.Multer.File
+  file: Express.Multer.File,
 ) => {
   const { url, publicId } = await uploadImage(file, "portfolio/projects");
 
@@ -44,7 +44,7 @@ export const updateProject = async (
   tech?: string[],
   github?: string,
   demo?: string,
-  file?: Express.Multer.File
+  file?: Express.Multer.File,
 ) => {
   const project = await prisma.projects.findUnique({ where: { id } });
   if (!project) {
@@ -70,8 +70,8 @@ export const updateProject = async (
       name,
       description,
       tech,
-      github,
-      demo,
+      github: github ? github : null,
+      demo: demo ? demo : null,
       image,
       imagePublicId,
     },
