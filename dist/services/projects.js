@@ -7,7 +7,7 @@ const cloudinary_1 = require("./cloudinary");
 const getProjects = async () => {
     const projcets = await prisma_1.prisma.projects.findMany({
         orderBy: {
-            created_at: "asc",
+            created_at: "desc",
         },
     });
     return projcets;
@@ -50,8 +50,8 @@ const updateProject = async (id, name, description, tech, github, demo, file) =>
             name,
             description,
             tech,
-            github,
-            demo,
+            github: github ? github : null,
+            demo: demo ? demo : null,
             image,
             imagePublicId,
         },
